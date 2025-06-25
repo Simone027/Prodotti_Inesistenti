@@ -44,11 +44,19 @@
       padding: 2rem 1rem;
       position: relative;
       border-radius: 0 0 1.5rem 1.5rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
 
     header h1 {
       margin: 0;
-      font-size: 1.8rem;
+      font-size: 2.2rem;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    }
+
+    header h3 {
+      margin: 0.5rem 0 0;
+      font-weight: 400;
+      opacity: 0.9;
     }
 
     .theme-toggle {
@@ -59,141 +67,230 @@
       color: white;
       border: none;
       border-radius: 1.5rem;
-      padding: 0.5rem 1rem;
+      padding: 0.5rem 1.2rem;
       font-size: 0.9rem;
       cursor: pointer;
+      transition: transform 0.2s, background 0.3s;
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.05);
+      background: #ea580c;
     }
 
     main {
       display: grid;
-      grid-template-columns: repeat(4, 1fr); /* 4 colonne per riga */
-      gap: 1.5rem;
-      max-width: 1200px; /* Larghezza aumentata per 4 prodotti */
-      margin: 2rem auto;
-      padding: 0 1rem;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.8rem;
+      max-width: 1300px;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem;
     }
 
     .product-card {
       background: var(--card-bg);
-      border-radius: 1rem;
-      padding: 1.5rem;
+      border-radius: 1.2rem;
+      padding: 1.8rem 1.2rem;
       text-align: center;
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       color: var(--primary);
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      transition: transform 0.2s, box-shadow 0.3s;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
       display: flex;
-      flex-direction: column;
+      align-items: center;
       justify-content: center;
-      min-height: 150px;
+      min-height: 170px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .product-card:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
     }
 
     .product-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+      transform: translateY(-8px);
+      box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+    }
+
+    .product-card:hover:before {
+      transform: scaleX(1);
     }
 
     /* Modal */
     .modal {
       display: none;
       position: fixed;
-      z-index: 999;
+      z-index: 1000;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(0,0,0,0.7);
+      background: rgba(0,0,0,0.85);
       justify-content: center;
       align-items: center;
       padding: 1rem;
+      animation: fadeIn 0.3s;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     .modal-content {
       background: var(--card-bg);
       color: var(--text);
-      padding: 2rem;
-      border-radius: 1rem;
+      padding: 2.5rem;
+      border-radius: 1.2rem;
       width: 100%;
-      max-width: 600px;
+      max-width: 650px;
       max-height: 90vh;
       overflow-y: auto;
       position: relative;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      animation: slideUp 0.4s ease-out;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
     .modal h2 {
       margin-top: 0;
       color: var(--primary);
+      font-size: 1.8rem;
+      padding-right: 2rem;
     }
 
     .modal p {
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+      font-size: 1.1rem;
     }
 
     .review {
       background: var(--review-bg);
-      padding: 1rem;
-      border-radius: 0.75rem;
-      margin-top: 1rem;
+      padding: 1.2rem;
+      border-radius: 0.8rem;
+      margin-top: 1.2rem;
+      transition: transform 0.2s;
+      border-left: 4px solid var(--accent);
+    }
+
+    .review:hover {
+      transform: translateX(5px);
     }
 
     .review-user {
       font-weight: bold;
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.4rem;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .review-user:before {
+      content: "👤";
     }
 
     .rating {
       color: var(--accent);
-      font-size: 1.1rem;
+      font-size: 1.2rem;
+      margin-top: 0.5rem;
     }
 
     .close-btn {
       position: absolute;
-      top: 1rem;
-      right: 1rem;
+      top: 1.2rem;
+      right: 1.2rem;
       background: var(--accent);
       border: none;
       color: white;
       border-radius: 50%;
-      width: 32px;
-      height: 32px;
-      font-size: 1.2rem;
+      width: 36px;
+      height: 36px;
+      font-size: 1.3rem;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s, background 0.2s;
     }
 
-    @media (max-width: 1024px) {
+    .close-btn:hover {
+      transform: rotate(90deg);
+      background: #dc2626;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      color: var(--text);
+      opacity: 0.7;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 1200px) {
       main {
-        grid-template-columns: repeat(3, 1fr); /* 3 colonne su schermi medi */
+        grid-template-columns: repeat(3, 1fr);
       }
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 900px) {
       main {
-        grid-template-columns: repeat(2, 1fr); /* 2 colonne su tablet */
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 700px;
       }
       
       .modal-content {
-        padding: 1rem;
+        padding: 1.8rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      main {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+      }
+      
+      header h1 {
+        font-size: 1.8rem;
+      }
+      
+      .theme-toggle {
+        position: relative;
+        top: initial;
+        right: initial;
+        margin-top: 1rem;
+        display: inline-block;
+      }
+      
+      .modal-content {
+        padding: 1.5rem;
         border-radius: 1rem;
       }
-
-      .theme-toggle {
-        top: 0.5rem;
-        right: 0.5rem;
-        padding: 0.4rem 0.8rem;
-      }
-
-      header h1 {
+      
+      .modal h2 {
         font-size: 1.5rem;
-      }
-
-      .product-card {
-        padding: 1.2rem;
-        font-size: 1rem;
       }
     }
 
     @media (max-width: 480px) {
-      main {
-        grid-template-columns: 1fr; /* 1 colonna su mobile */
+      .product-card {
+        padding: 1.5rem 1rem;
+        min-height: 140px;
       }
     }
   </style>
@@ -209,19 +306,23 @@
   <main id="products"></main>
 
   <div class="modal" id="modal">
-    <div class="modal-content" role="dialog" aria-modal="true">
-      <button class="close-btn" id="closeModal">&times;</button>
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="close-btn" id="closeModal" aria-label="Chiudi">&times;</button>
       <h2 id="modalTitle"></h2>
       <p id="modalDesc"></p>
       <div id="modalReviews"></div>
     </div>
   </div>
 
+  <footer>
+    <p>© 2025 Prodotti Inesistenti - Tutti i "prodotti" sono frutto di fantasia</p>
+  </footer>
+
   <script>
     const prodotti = [
       {
         nome: "Spremiagrumi che ti legge il futuro",
-        descrizione: "Non solo ti fa un succo fantastico, ma ti racconta il futuro mentre lo usi.",
+        descrizione: "Non solo ti fa un succo fantastico, ma ti racconta il futuro mentre lo usi. La sua precisione aumenta con la quantità di arance spremute!",
         recensioni: [
           { utente: "FortunatoPrevedo", testo: "Ho scoperto che presto vincerò la lotteria!", stelle: 5 },
           { utente: "OracoloSbuccia", testo: "Mi ha predetto l’arrivo della pizza a cena!", stelle: 3 },
@@ -232,7 +333,7 @@
       },
       {
         nome: "Cuscino che ti prepara il caffè",
-        descrizione: "Mentre dormi, prepara un espresso perfetto per te al risveglio.",
+        descrizione: "Mentre dormi, prepara un espresso perfetto per te al risveglio. La sveglia è sostituita dal profumo del caffè appena fatto.",
         recensioni: [
           { utente: "DormiglioneInCaffeina", testo: "Mi sveglio già caffeinato!", stelle: 5 },
           { utente: "SonnoProfondo", testo: "Buona idea, ma fa un po’ troppo rumore.", stelle: 2 },
@@ -243,7 +344,7 @@
       },
       {
         nome: "Guanti che ti insegnano a suonare",
-        descrizione: "Metti questi guanti e improvvisamente sai suonare il pianoforte!",
+        descrizione: "Metti questi guanti e improvvisamente sai suonare il pianoforte! Funziona anche con chitarra, batteria e arpa celtica.",
         recensioni: [
           { utente: "Mozartino", testo: "Finalmente suono come un virtuoso!", stelle: 5 },
           { utente: "DitoMagico", testo: "Mancano ancora alcune note ma è già fantastico", stelle: 4 },
@@ -254,7 +355,7 @@
       },
       {
         nome: "Ombrello con GPS incorporato",
-        descrizione: "Ti segue automaticamente quando piove, non dovrai mai più bagnarti!",
+        descrizione: "Ti segue automaticamente quando piove, non dovrai mai più bagnarti! Ha anche la funzione antiproiettile per grandinate intense.",
         recensioni: [
           { utente: "PioggiaFelice", testo: "Salvato durante un temporale improvviso!", stelle: 5 },
           { utente: "NuvolaGrassa", testo: "A volte si perde e devo andare a cercarlo", stelle: 3 },
@@ -265,42 +366,46 @@
       },
       {
         nome: "Cappello che traduce lingue animali",
-        descrizione: "Finalmente capirai cosa ti sta dicendo il tuo gatto!",
+        descrizione: "Finalmente capirai cosa ti sta dicendo il tuo gatto! Supporta oltre 200 specie animali, dai pappagalli alle formiche.",
         recensioni: [
           { utente: "ParlaColGatto", testo: "Ho scoperto che mi chiama 'schiavo umano'!", stelle: 4 },
           { utente: "AmicoDeiCani", testo: "Il mio cane vuole solo giocare tutto il giorno", stelle: 5 },
           { utente: "UccelliParlanti", testo: "I piccioni mi hanno chiesto del pane", stelle: 3 },
-          { utente: "PesciolinoRosso", testo: "Il mio pesce si lamenta sempre della vasca", stelle: 2 }
+          { utente: "PesciolinoRosso", testo: "Il mio pesce si lamenta sempre della vasca", stelle: 2 },
+          { utente: "ZooLinguista", testo: "Ho parlato con un gorilla, mi ha detto che sono noioso!", stelle: 4 }
         ]
       },
       {
         nome: "Penna che scrive da sola",
-        descrizione: "Pensa a cosa vuoi scrivere e la penna lo farà per te!",
+        descrizione: "Pensa a cosa vuoi scrivere e la penna lo farà per te! Ideale per studenti pigri e scrittori con blocco creativo.",
         recensioni: [
           { utente: "ScrittorePigro", testo: "Ho scritto un romanzo senza alzare un dito!", stelle: 5 },
           { utente: "StudenteFelice", testo: "Finalmente i compiti si fanno da soli!", stelle: 5 },
           { utente: "Grafologo", testo: "La calligrafia è sempre perfetta", stelle: 4 },
-          { utente: "MenteConfusa", testo: "A volte scrive cose che non pensavo", stelle: 2 }
+          { utente: "MenteConfusa", testo: "A volte scrive cose che non pensavo", stelle: 2 },
+          { utente: "AutoreAutomatico", testo: "Scrive anche quando non voglio, ho riempito 10 quaderni!", stelle: 3 }
         ]
       },
       {
         nome: "Scarpe che ti portano a casa",
-        descrizione: "Basta pensare a casa e le scarpe ti ci portano automaticamente!",
+        descrizione: "Basta pensare a casa e le scarpe ti ci portano automaticamente! Funziona anche per bar, pizzerie e spiagge tropicali.",
         recensioni: [
           { utente: "PiediStanchi", testo: "Salvate dopo una lunga serata!", stelle: 5 },
           { utente: "TuristaPerso", testo: "Mi hanno riportato in hotel senza GPS", stelle: 4 },
           { utente: "Camminatore", testo: "A volte prendono scorciatoie pericolose", stelle: 3 },
-          { utente: "AbitanteDiMontagna", testo: "Non funzionano bene in salita", stelle: 2 }
+          { utente: "AbitanteDiMontagna", testo: "Non funzionano bene in salita", stelle: 2 },
+          { utente: "Passeggiatore", testo: "Mi hanno portato a casa di un vicino per sbaglio!", stelle: 2 }
         ]
       },
       {
         nome: "Occhiali che vedono attraverso i vestiti",
-        descrizione: "No, non per quello che stai pensando... per vedere se hanno tasche!",
+        descrizione: "No, non per quello che stai pensando... per vedere se hanno tasche! Rivoluzionari per lo shopping e la sicurezza aeroportuale.",
         recensioni: [
           { utente: "SartoCurioso", testo: "Finalmente so dove mettere le tasche!", stelle: 4 },
           { utente: "MammaPratica", testo: "Perfetti per trovare i fazzoletti nelle giacche", stelle: 5 },
           { utente: "Timido", testo: "Mi sento un po' in imbarazzo ad usarli", stelle: 3 },
-          { utente: "FashionDesigner", testo: "Rivoluzionari per il mio lavoro!", stelle: 5 }
+          { utente: "FashionDesigner", testo: "Rivoluzionari per il mio lavoro!", stelle: 5 },
+          { utente: "Vedente", testo: "Vedo le tasche ma anche altro... imbarazzante!", stelle: 3 }
         ]
       }
     ];
@@ -365,16 +470,27 @@
       });
       
       modal.style.display = "flex";
+      document.body.style.overflow = "hidden";
     }
 
     // Chiusura modale
     document.getElementById("closeModal").addEventListener("click", () => {
       modal.style.display = "none";
+      document.body.style.overflow = "auto";
     });
 
     window.addEventListener("click", e => {
       if (e.target === modal) {
         modal.style.display = "none";
+        document.body.style.overflow = "auto";
+      }
+    });
+
+    // Chiudi modal con ESC
+    document.addEventListener("keydown", e => {
+      if (e.key === "Escape" && modal.style.display === "flex") {
+        modal.style.display = "none";
+        document.body.style.overflow = "auto";
       }
     });
   </script>
