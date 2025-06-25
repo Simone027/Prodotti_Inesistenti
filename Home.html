@@ -224,6 +224,28 @@
           { utente: "RisveglioEspresso", testo: "Un miracolo del mattino!", stelle: 5 },
           { utente: "TazzaSonno", testo: "Il caffè era freddo... forse ha dormito anche lui.", stelle: 1 }
         ]
+      },
+      {
+        nome: "Guanti che ti insegnano a suonare",
+        descrizione: "Metti questi guanti e improvvisamente sai suonare il pianoforte!",
+        recensioni: [
+          { utente: "Mozartino", testo: "Finalmente suono come un virtuoso!", stelle: 5 },
+          { utente: "DitoMagico", testo: "Mancano ancora alcune note ma è già fantastico", stelle: 4 },
+          { utente: "PianistaPerCaso", testo: "Ho suonato un concerto al matrimonio di mia cugina!", stelle: 5 },
+          { utente: "TastieraIncantata", testo: "Funziona solo con pianoforti a coda", stelle: 3 },
+          { utente: "NoteStonate", testo: "Mi ha fatto suonare solo musica heavy metal", stelle: 2 }
+        ]
+      },
+      {
+        nome: "Ombrello con GPS incorporato",
+        descrizione: "Ti segue automaticamente quando piove, non dovrai mai più bagnarti!",
+        recensioni: [
+          { utente: "PioggiaFelice", testo: "Salvato durante un temporale improvviso!", stelle: 5 },
+          { utente: "NuvolaGrassa", testo: "A volte si perde e devo andare a cercarlo", stelle: 3 },
+          { utente: "Gocciolone", testo: "Mi ha protetto da un acquazzone mentre andavo in bici!", stelle: 4 },
+          { utente: "SoleIngannato", testo: "Si è aperto anche quando non pioveva", stelle: 2 },
+          { utente: "Meteorologo", testo: "Previsioni più accurate del mio app!", stelle: 5 }
+        ]
       }
     ];
 
@@ -232,7 +254,35 @@
     const modalTitle = document.getElementById("modalTitle");
     const modalDesc = document.getElementById("modalDesc");
     const modalReviews = document.getElementById("modalReviews");
+    const toggleBtn = document.getElementById("toggleTheme");
 
+    // Funzione per impostare il tema
+    function setTheme(isDark) {
+      if (isDark) {
+        document.body.classList.add("dark");
+        toggleBtn.textContent = "Tema chiaro";
+      } else {
+        document.body.classList.remove("dark");
+        toggleBtn.textContent = "Tema scuro";
+      }
+    }
+
+    // Controlla il tema del sistema all'avvio
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    setTheme(prefersDark);
+
+    // Ascolta i cambiamenti del tema di sistema
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
+      setTheme(e.matches);
+    });
+
+    // Toggle manuale del tema
+    toggleBtn.addEventListener("click", () => {
+      const isDark = !document.body.classList.contains("dark");
+      setTheme(isDark);
+    });
+
+    // Creazione delle card prodotto
     prodotti.forEach((prodotto) => {
       const card = document.createElement("div");
       card.className = "product-card";
@@ -241,10 +291,12 @@
       container.appendChild(card);
     });
 
+    // Funzione per aprire la modale
     function openModal(prodotto) {
       modalTitle.textContent = prodotto.nome;
       modalDesc.textContent = prodotto.descrizione;
       modalReviews.innerHTML = "";
+      
       prodotto.recensioni.forEach(r => {
         const div = document.createElement("div");
         div.className = "review";
@@ -255,9 +307,11 @@
         `;
         modalReviews.appendChild(div);
       });
+      
       modal.style.display = "flex";
     }
 
+    // Chiusura modale
     document.getElementById("closeModal").addEventListener("click", () => {
       modal.style.display = "none";
     });
@@ -266,12 +320,6 @@
       if (e.target === modal) {
         modal.style.display = "none";
       }
-    });
-
-    const toggleBtn = document.getElementById("toggleTheme");
-    toggleBtn.addEventListener("click", () => {
-      document.body.classList.toggle("dark");
-      toggleBtn.textContent = document.body.classList.contains("dark") ? "Tema chiaro" : "Tema scuro";
     });
   </script>
 
