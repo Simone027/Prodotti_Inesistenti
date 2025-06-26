@@ -5,7 +5,9 @@
   
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
   <title>Prodotti Inesistenti</title>
+  
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
@@ -16,6 +18,9 @@
       --accent: #f97316;
       --card-bg: #ffffff;
       --review-bg: #e0f2fe;
+      --search-bg: #ffffff;
+      --search-border: #d1d5db;
+      --floating-btn-bg: #3b82f6;
     }
 
     body.dark {
@@ -25,6 +30,9 @@
       --accent: #fb923c;
       --card-bg: #1e293b;
       --review-bg: #334155;
+      --search-bg: #1e293b;
+      --search-border: #475569;
+      --floating-btn-bg: #60a5fa;
     }
 
     * {
@@ -37,47 +45,105 @@
       background: var(--bg);
       color: var(--text);
       transition: background 0.3s, color 0.3s;
+      padding-bottom: 5rem; /* Spazio per il pulsante fluttuante */
     }
 
     header {
       background: var(--primary);
       color: white;
       text-align: center;
-      padding: 2rem 1rem;
+      padding: 2rem 1rem 1.5rem;
       position: relative;
       border-radius: 0 0 1.5rem 1.5rem;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
 
     header h1 {
-      margin: 0;
+      margin: 0 0 0.5rem;
       font-size: 2.2rem;
       text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
     }
 
     header h3 {
-      margin: 0.5rem 0 0;
+      margin: 0 0 1.5rem;
       font-weight: 400;
       opacity: 0.9;
     }
 
-    .theme-toggle {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: var(--accent);
-      color: white;
-      border: none;
-      border-radius: 1.5rem;
-      padding: 0.5rem 1.2rem;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: transform 0.2s, background 0.3s;
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      max-width: 800px;
+      margin: 0 auto;
     }
 
-    .theme-toggle:hover {
-      transform: scale(1.05);
-      background: #ea580c;
+    .search-container {
+      flex: 1;
+      max-width: 500px;
+      position: relative;
+    }
+
+    #searchInput {
+      width: 100%;
+      padding: 0.9rem 1.2rem 0.9rem 3rem;
+      border-radius: 2rem;
+      border: 2px solid var(--search-border);
+      background: var(--search-bg);
+      color: var(--text);
+      font-size: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: all 0.3s;
+    }
+
+    #searchInput:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.3);
+    }
+
+    .search-container::before {
+      content: "🔍";
+      position: absolute;
+      left: 1.2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.2rem;
+      opacity: 0.7;
+    }
+
+    /* Pulsante fluttuante per il tema */
+    .floating-theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--floating-btn-bg);
+      color: white;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 100;
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    .floating-theme-toggle:hover {
+      transform: scale(1.1) rotate(15deg);
+    }
+
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3rem;
+      font-size: 1.2rem;
+      color: var(--accent);
+      display: none;
     }
 
     main {
@@ -259,6 +325,17 @@
       .modal-content {
         padding: 1.8rem;
       }
+      
+      .controls {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.8rem;
+      }
+      
+      .search-container {
+        width: 100%;
+        max-width: 100%;
+      }
     }
 
     @media (max-width: 600px) {
@@ -271,20 +348,20 @@
         font-size: 1.8rem;
       }
       
-      .theme-toggle {
-        position: relative;
-        top: initial;
-        right: initial;
-        margin-top: 1rem;
-        display: inline-block;
-      }
-      
       .modal-content {
         padding: 1.5rem;
         border-radius: 1rem;
       }
       
       .modal h2 {
+        font-size: 1.5rem;
+      }
+      
+      .floating-theme-toggle {
+        bottom: 1.5rem;
+        right: 1.5rem;
+        width: 50px;
+        height: 50px;
         font-size: 1.5rem;
       }
     }
@@ -302,10 +379,19 @@
   <header>
     <h1>Prodotti inesistenti</h1>
     <h3>Cose che non esistono (Ma vorresti)</h3>
-    <button class="theme-toggle" id="toggleTheme">Tema scuro</button>
+    
+    <div class="controls">
+      <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Cerca prodotti...">
+      </div>
+    </div>
   </header>
 
-  <main id="products"></main>
+  <main id="products">
+    <div class="no-results" id="noResults">
+      Nessun prodotto trovato. Prova un'altra ricerca!
+    </div>
+  </main>
 
   <div class="modal" id="modal">
     <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
@@ -319,6 +405,9 @@
   <footer>
     <p>© 2025 Prodotti Inesistenti - Tutti i "prodotti" sono frutto di fantasia</p>
   </footer>
+
+  <!-- Pulsante del tema fluttuante -->
+  <button class="floating-theme-toggle" id="toggleTheme">🌙</button>
 
   <script>
     const prodotti = [
@@ -418,15 +507,17 @@
     const modalDesc = document.getElementById("modalDesc");
     const modalReviews = document.getElementById("modalReviews");
     const toggleBtn = document.getElementById("toggleTheme");
+    const searchInput = document.getElementById("searchInput");
+    const noResults = document.getElementById("noResults");
 
     // Funzione per impostare il tema
     function setTheme(isDark) {
       if (isDark) {
         document.body.classList.add("dark");
-        toggleBtn.textContent = "Tema chiaro";
+        toggleBtn.textContent = "☀️"; // Sole per tema scuro
       } else {
         document.body.classList.remove("dark");
-        toggleBtn.textContent = "Tema scuro";
+        toggleBtn.textContent = "🌙"; // Luna per tema chiaro
       }
     }
 
@@ -446,12 +537,49 @@
     });
 
     // Creazione delle card prodotto
-    prodotti.forEach((prodotto) => {
-      const card = document.createElement("div");
-      card.className = "product-card";
-      card.innerHTML = `<span>${prodotto.nome}</span>`;
-      card.addEventListener("click", () => openModal(prodotto));
-      container.appendChild(card);
+    function renderProducts(products = prodotti) {
+      container.innerHTML = "";
+      noResults.style.display = "none";
+      
+      if (products.length === 0) {
+        noResults.style.display = "block";
+        return;
+      }
+      
+      products.forEach((prodotto) => {
+        const card = document.createElement("div");
+        card.className = "product-card";
+        card.innerHTML = `<span>${prodotto.nome}</span>`;
+        card.addEventListener("click", () => openModal(prodotto));
+        container.appendChild(card);
+      });
+    }
+    
+    // Funzione per filtrare i prodotti
+    function filterProducts() {
+      const searchTerm = searchInput.value.toLowerCase();
+      
+      if (searchTerm.trim() === "") {
+        renderProducts(prodotti);
+        return;
+      }
+      
+      const filteredProducts = prodotti.filter(prodotto => 
+        prodotto.nome.toLowerCase().includes(searchTerm)
+      );
+      
+      renderProducts(filteredProducts);
+    }
+    
+    // Event listener per la ricerca
+    searchInput.addEventListener("input", filterProducts);
+    
+    // Pulsante per cancellare la ricerca
+    searchInput.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        searchInput.value = "";
+        filterProducts();
+      }
     });
 
     // Funzione per aprire la modale
@@ -495,6 +623,9 @@
         document.body.style.overflow = "auto";
       }
     });
+
+    // Inizializza la pagina
+    renderProducts();
   </script>
 
 </body>
