@@ -114,7 +114,7 @@
       opacity: 0.7;
     }
 
-    /* Pulsante fluttuante per il tema */
+    /* Pulsante del tema fluttuante */
     .floating-theme-toggle {
       position: fixed;
       bottom: 2rem;
@@ -414,71 +414,18 @@
   <button class="floating-theme-toggle" id="toggleTheme">🌙</button>
 
   <script>
+    // Array dei prodotti con ordine invertito (il più recente per primo)
     const prodotti = [
+      // Prodotti più recenti (inseriti per ultimi)
       {
-        nome: "Spremiagrumi che ti legge il futuro",
-        descrizione: "Non solo ti fa un succo fantastico, ma ti racconta il futuro mentre lo usi. La sua precisione aumenta con la quantità di arance spremute!",
+        nome: "Occhiali che vedono attraverso i vestiti",
+        descrizione: "No, non per quello che stai pensando... per vedere se hanno tasche! Rivoluzionari per lo shopping e la sicurezza aeroportuale.",
         recensioni: [
-          { utente: "FortunatoPrevedo", testo: "Ho scoperto che presto vincerò la lotteria!", stelle: 5 },
-          { utente: "OracoloSbuccia", testo: "Mi ha predetto l’arrivo della pizza a cena!", stelle: 3 },
-          { utente: "CitrusSeer", testo: "Mi ha detto di evitare il traffico... aveva ragione!", stelle: 4 },
-          { utente: "ZodiacoZest", testo: "Non ha detto molto, ma il succo era buono.", stelle: 2 },
-          { utente: "SuccoMistico", testo: "Mi ha fatto versare il succo sul gatto.", stelle: 1 }
-        ]
-      },
-      {
-        nome: "Cuscino che ti prepara il caffè",
-        descrizione: "Mentre dormi, prepara un espresso perfetto per te al risveglio. La sveglia è sostituita dal profumo del caffè appena fatto.",
-        recensioni: [
-          { utente: "DormiglioneInCaffeina", testo: "Mi sveglio già caffeinato!", stelle: 5 },
-          { utente: "SonnoProfondo", testo: "Buona idea, ma fa un po’ troppo rumore.", stelle: 2 },
-          { utente: "CaffèSognante", testo: "Sogno cappuccini!", stelle: 4 },
-          { utente: "RisveglioEspresso", testo: "Un miracolo del mattino!", stelle: 5 },
-          { utente: "TazzaSonno", testo: "Il caffè era freddo... forse ha dormito anche lui.", stelle: 1 }
-        ]
-      },
-      {
-        nome: "Guanti che ti insegnano a suonare",
-        descrizione: "Metti questi guanti e improvvisamente sai suonare il pianoforte! Funziona anche con chitarra, batteria e arpa celtica.",
-        recensioni: [
-          { utente: "Mozartino", testo: "Finalmente suono come un virtuoso!", stelle: 5 },
-          { utente: "DitoMagico", testo: "Mancano ancora alcune note ma è già fantastico", stelle: 4 },
-          { utente: "PianistaPerCaso", testo: "Ho suonato un concerto al matrimonio di mia cugina!", stelle: 5 },
-          { utente: "TastieraIncantata", testo: "Funziona solo con pianoforti a coda", stelle: 3 },
-          { utente: "NoteStonate", testo: "Mi ha fatto suonare solo musica heavy metal", stelle: 2 }
-        ]
-      },
-      {
-        nome: "Ombrello con GPS incorporato",
-        descrizione: "Ti segue automaticamente quando piove, non dovrai mai più bagnarti! Ha anche la funzione antiproiettile per grandinate intense.",
-        recensioni: [
-          { utente: "PioggiaFelice", testo: "Salvato durante un temporale improvviso!", stelle: 5 },
-          { utente: "NuvolaGrassa", testo: "A volte si perde e devo andare a cercarlo", stelle: 3 },
-          { utente: "Gocciolone", testo: "Mi ha protetto da un acquazzone mentre andavo in bici!", stelle: 4 },
-          { utente: "SoleIngannato", testo: "Si è aperto anche quando non pioveva", stelle: 2 },
-          { utente: "Meteorologo", testo: "Previsioni più accurate del mio app!", stelle: 5 }
-        ]
-      },
-      {
-        nome: "Cappello che traduce lingue animali",
-        descrizione: "Finalmente capirai cosa ti sta dicendo il tuo gatto! Supporta oltre 200 specie animali, dai pappagalli alle formiche.",
-        recensioni: [
-          { utente: "ParlaColGatto", testo: "Ho scoperto che mi chiama 'schiavo umano'!", stelle: 4 },
-          { utente: "AmicoDeiCani", testo: "Il mio cane vuole solo giocare tutto il giorno", stelle: 5 },
-          { utente: "UccelliParlanti", testo: "I piccioni mi hanno chiesto del pane", stelle: 3 },
-          { utente: "PesciolinoRosso", testo: "Il mio pesce si lamenta sempre della vasca", stelle: 2 },
-          { utente: "ZooLinguista", testo: "Ho parlato con un gorilla, mi ha detto che sono noioso!", stelle: 4 }
-        ]
-      },
-      {
-        nome: "Penna che scrive da sola",
-        descrizione: "Pensa a cosa vuoi scrivere e la penna lo farà per te! Ideale per studenti pigri e scrittori con blocco creativo.",
-        recensioni: [
-          { utente: "ScrittorePigro", testo: "Ho scritto un romanzo senza alzare un dito!", stelle: 5 },
-          { utente: "StudenteFelice", testo: "Finalmente i compiti si fanno da soli!", stelle: 5 },
-          { utente: "Grafologo", testo: "La calligrafia è sempre perfetta", stelle: 4 },
-          { utente: "MenteConfusa", testo: "A volte scrive cose che non pensavo", stelle: 2 },
-          { utente: "AutoreAutomatico", testo: "Scrive anche quando non voglio, ho riempito 10 quaderni!", stelle: 3 }
+          { utente: "SartoCurioso", testo: "Finalmente so dove mettere le tasche!", stelle: 4 },
+          { utente: "MammaPratica", testo: "Perfetti per trovare i fazzoletti nelle giacche", stelle: 5 },
+          { utente: "Timido", testo: "Mi sento un po' in imbarazzo ad usarli", stelle: 3 },
+          { utente: "FashionDesigner", testo: "Rivoluzionari per il mio lavoro!", stelle: 5 },
+          { utente: "Vedente", testo: "Vedo le tasche ma anche altro... imbarazzante!", stelle: 3 }
         ]
       },
       {
@@ -493,14 +440,70 @@
         ]
       },
       {
-        nome: "Occhiali che vedono attraverso i vestiti",
-        descrizione: "No, non per quello che stai pensando... per vedere se hanno tasche! Rivoluzionari per lo shopping e la sicurezza aeroportuale.",
+        nome: "Penna che scrive da sola",
+        descrizione: "Pensa a cosa vuoi scrivere e la penna lo farà per te! Ideale per studenti pigri e scrittori con blocco creativo.",
         recensioni: [
-          { utente: "SartoCurioso", testo: "Finalmente so dove mettere le tasche!", stelle: 4 },
-          { utente: "MammaPratica", testo: "Perfetti per trovare i fazzoletti nelle giacche", stelle: 5 },
-          { utente: "Timido", testo: "Mi sento un po' in imbarazzo ad usarli", stelle: 3 },
-          { utente: "FashionDesigner", testo: "Rivoluzionari per il mio lavoro!", stelle: 5 },
-          { utente: "Vedente", testo: "Vedo le tasche ma anche altro... imbarazzante!", stelle: 3 }
+          { utente: "ScrittorePigro", testo: "Ho scritto un romanzo senza alzare un dito!", stelle: 5 },
+          { utente: "StudenteFelice", testo: "Finalmente i compiti si fanno da soli!", stelle: 5 },
+          { utente: "Grafologo", testo: "La calligrafia è sempre perfetta", stelle: 4 },
+          { utente: "MenteConfusa", testo: "A volte scrive cose che non pensavo", stelle: 2 },
+          { utente: "AutoreAutomatico", testo: "Scrive anche quando non voglio, ho riempito 10 quaderni!", stelle: 3 }
+        ]
+      },
+      {
+        nome: "Cappello che traduce lingue animali",
+        descrizione: "Finalmente capirai cosa ti sta dicendo il tuo gatto! Supporta oltre 200 specie animali, dai pappagalli alle formiche.",
+        recensioni: [
+          { utente: "ParlaColGatto", testo: "Ho scoperto che mi chiama 'schiavo umano'!", stelle: 4 },
+          { utente: "AmicoDeiCani", testo: "Il mio cane vuole solo giocare tutto il giorno", stelle: 5 },
+          { utente: "UccelliParlanti", testo: "I piccioni mi hanno chiesto del pane", stelle: 3 },
+          { utente: "PesciolinoRosso", testo: "Il mio pesce si lamenta sempre della vasca", stelle: 2 },
+          { utente: "ZooLinguista", testo: "Ho parlato con un gorilla, mi ha detto che sono noioso!", stelle: 4 }
+        ]
+      },
+      {
+        nome: "Ombrello con GPS incorporato",
+        descrizione: "Ti segue automaticamente quando piove, non dovrai mai più bagnarti! Ha anche la funzione antiproiettile per grandinate intense.",
+        recensioni: [
+          { utente: "PioggiaFelice", testo: "Salvato durante un temporale improvviso!", stelle: 5 },
+          { utente: "NuvolaGrassa", testo: "A volte si perde e devo andare a cercarlo", stelle: 3 },
+          { utente: "Gocciolone", testo: "Mi ha protetto da un acquazzone mentre andavo in bici!", stelle: 4 },
+          { utente: "SoleIngannato", testo: "Si è aperto anche quando non pioveva", stelle: 2 },
+          { utente: "Meteorologo", testo: "Previsioni più accurate del mio app!", stelle: 5 }
+        ]
+      },
+      {
+        nome: "Guanti che ti insegnano a suonare",
+        descrizione: "Metti questi guanti e improvvisamente sai suonare il pianoforte! Funziona anche con chitarra, batteria e arpa celtica.",
+        recensioni: [
+          { utente: "Mozartino", testo: "Finalmente suono come un virtuoso!", stelle: 5 },
+          { utente: "DitoMagico", testo: "Mancano ancora alcune note ma è già fantastico", stelle: 4 },
+          { utente: "PianistaPerCaso", testo: "Ho suonato un concerto al matrimonio di mia cugina!", stelle: 5 },
+          { utente: "TastieraIncantata", testo: "Funziona solo con pianoforti a coda", stelle: 3 },
+          { utente: "NoteStonate", testo: "Mi ha fatto suonare solo musica heavy metal", stelle: 2 }
+        ]
+      },
+      {
+        nome: "Cuscino che ti prepara il caffè",
+        descrizione: "Mentre dormi, prepara un espresso perfetto per te al risveglio. La sveglia è sostituita dal profumo del caffè appena fatto.",
+        recensioni: [
+          { utente: "DormiglioneInCaffeina", testo: "Mi sveglio già caffeinato!", stelle: 5 },
+          { utente: "SonnoProfondo", testo: "Buona idea, ma fa un po’ troppo rumore.", stelle: 2 },
+          { utente: "CaffèSognante", testo: "Sogno cappuccini!", stelle: 4 },
+          { utente: "RisveglioEspresso", testo: "Un miracolo del mattino!", stelle: 5 },
+          { utente: "TazzaSonno", testo: "Il caffè era freddo... forse ha dormito anche lui.", stelle: 1 }
+        ]
+      },
+      // Prodotto più vecchio (inserito per primo)
+      {
+        nome: "Spremiagrumi che ti legge il futuro",
+        descrizione: "Non solo ti fa un succo fantastico, ma ti racconta il futuro mentre lo usi. La sua precisione aumenta con la quantità di arance spremute!",
+        recensioni: [
+          { utente: "FortunatoPrevedo", testo: "Ho scoperto che presto vincerò la lotteria!", stelle: 5 },
+          { utente: "OracoloSbuccia", testo: "Mi ha predetto l’arrivo della pizza a cena!", stelle: 3 },
+          { utente: "CitrusSeer", testo: "Mi ha detto di evitare il traffico... aveva ragione!", stelle: 4 },
+          { utente: "ZodiacoZest", testo: "Non ha detto molto, ma il succo era buono.", stelle: 2 },
+          { utente: "SuccoMistico", testo: "Mi ha fatto versare il succo sul gatto.", stelle: 1 }
         ]
       }
     ];
@@ -540,7 +543,7 @@
       setTheme(isDark);
     });
 
-    // Creazione delle card prodotto
+    // Creazione delle card prodotto (con ordine naturale invertito)
     function renderProducts(products = prodotti) {
       container.innerHTML = "";
       noResults.style.display = "none";
@@ -550,6 +553,7 @@
         return;
       }
       
+      // I prodotti sono già in ordine inverso nell'array
       products.forEach((prodotto) => {
         const card = document.createElement("div");
         card.className = "product-card";
