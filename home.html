@@ -552,19 +552,44 @@
     clearSearchBtn.addEventListener('click', clearSearch);
 
     // Funzione per caricare i prodotti dal JSON
-    async function loadProducts() {
-        try {
-            const response = await fetch('https://simone027.github.io/prodotti_inesistenti/database.json');
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const data = await response.json();
-            prodotti = data.prodotti;
-            renderProducts();
-        } catch (error) {
-            console.error('Errore nel caricamento dei prodotti:', error);
+async function loadProducts() {
+    try {
+        const response = await fetch('https://simone027.github.io/prodotti_inesistenti/database.json');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
         }
+        const data = await response.json();
+        prodotti = data.prodotti;
+        
+        // Rimuovi eventuali messaggi d'errore precedenti
+        const existingError = document.querySelector('#load-error-message');
+        if (existingError) {
+            existingError.remove();
+        }
+        
+        renderProducts();
+    } catch (error) {
+        console.error('Errore nel caricamento dei prodotti:', error);
+        
+        // Rimuovi eventuali messaggi d'errore precedenti
+        const existingError = document.querySelector('#load-error-message');
+        if (existingError) {
+            existingError.remove();
+        }
+        
+        // Aggiungi l'errore visibile nella pagina
+        const errorElement = document.createElement('h5');
+        errorElement.id = 'load-error-message';
+        errorElement.textContent = 'Errore nel caricamento dei prodotti';
+        errorElement.style.color = 'red';
+        errorElement.style.textAlign = 'center';
+        errorElement.style.margin = '20px';
+        
+        // Aggiungi l'errore al container principale o al body
+        const container = document.querySelector('.container') || document.body;
+        container.prepend(errorElement);
     }
+}
 
     // Funzione per salvare la preferenza del tema
     function saveThemePreference(theme) {
