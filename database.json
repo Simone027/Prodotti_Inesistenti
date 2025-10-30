@@ -1,26 +1,4 @@
 {
-  "sito": {
-    "titolo": "Prodotti inesistenti",
-    "sottotitolo": "Cose che non esistono (Ma vorresti)",
-    "footer": "© 2025 Prodotti Inesistenti - Tutti i \"prodotti\" sono frutto di fantasia"
-  },
-  "temi": [
-    {
-      "nome": "auto",
-      "icona": "🌓",
-      "etichetta": "Automatico"
-    },
-    {
-      "nome": "light",
-      "icona": "☀️",
-      "etichetta": "Tema chiaro"
-    },
-    {
-      "nome": "dark",
-      "icona": "🌙",
-      "etichetta": "Tema scuro"
-    }
-  ],
   "prodotti": [
     {
       "id": 1,
